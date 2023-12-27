@@ -15,6 +15,14 @@ import DefaultTheme from "./middlewares/DefaultTheme";
 import DocumentationPage from "./pages/documentation-page";
 import FriendsPage from "./pages/friends-page";
 import { DatabaseOverviewComponent } from "./components/database-overview-component";
+import { BackendTechnologyComponent } from "./components/backend-technology-component";
+import { BackendArchitectureComponent } from "./components/backend-architecture-component";
+import { BackendApiUserComponent } from "./components/backend-api-user-component";
+import { BackendApiTodoComponent } from "./components/backend-api-todo-component";
+import { BackendApiOtpComponent } from "./components/backend-api-otp-component";
+import { BackendApiFriendsComponent } from "./components/backend-api-friends-component";
+import { BackendApiNotificationComponent } from "./components/backend-api-notification-component";
+import { BackendMiddlewareComponent } from "./components/backend-middleware-component";
 
 function App() {
   return (
@@ -117,6 +125,78 @@ function App() {
         element={
           <DefaultTheme>
             <DatabaseOverviewComponent />
+          </DefaultTheme>
+        }
+      />
+      <Route
+        path="/documentation/backend-technology"
+        element={
+          <DefaultTheme>
+            <BackendTechnologyComponent />
+          </DefaultTheme>
+        }
+      />
+      <Route
+        path="/documentation/backend-architecture"
+        element={
+          <DefaultTheme>
+            <BackendArchitectureComponent />
+          </DefaultTheme>
+        }
+      />
+      <Route
+        path="/documentation/backend-api"
+        element={
+          <DefaultTheme>
+            <Navigate to="/documentation/backend-api/user" replace />
+          </DefaultTheme>
+        }
+      />
+      <Route
+        path="/documentation/backend-api/user"
+        element={
+          <DefaultTheme>
+            <BackendApiUserComponent />
+          </DefaultTheme>
+        }
+      />
+      <Route
+        path="/documentation/backend-api/todo"
+        element={
+          <DefaultTheme>
+            <BackendApiTodoComponent />
+          </DefaultTheme>
+        }
+      />
+      <Route
+        path="/documentation/backend-api/otp"
+        element={
+          <DefaultTheme>
+            <BackendApiOtpComponent />
+          </DefaultTheme>
+        }
+      />
+      <Route
+        path="/documentation/backend-api/friends"
+        element={
+          <DefaultTheme>
+            <BackendApiFriendsComponent />
+          </DefaultTheme>
+        }
+      />
+      <Route
+        path="/documentation/backend-api/notification"
+        element={
+          <DefaultTheme>
+            <BackendApiNotificationComponent />
+          </DefaultTheme>
+        }
+      />
+      <Route
+        path="/documentation/backend-middleware"
+        element={
+          <DefaultTheme>
+            <BackendMiddlewareComponent />
           </DefaultTheme>
         }
       />

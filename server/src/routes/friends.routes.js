@@ -15,6 +15,7 @@ route.put("/accept/:friendsId", friendsController.acceptFriend);
 // Reject Friends
 route.delete("/reject/:friendsId", friendsController.rejectFriend);
 
+// Delete Friends
 route.delete("/delete/:friendsId", friendsController.deleteFriend);
 
 // View All Friends
