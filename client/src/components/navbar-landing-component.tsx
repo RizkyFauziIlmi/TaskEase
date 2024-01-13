@@ -4,12 +4,12 @@ import { useScroll, useSpring, motion } from "framer-motion";
 import logo from "../assets/logo.png";
 import IconGithub from "../components/svg/github-svg";
 import IconDiscord from "../components/svg/discord-svg";
-import IconTwitter from "../components/svg/twitter-svg";
 import IconGmail from "../components/svg/gmail-svg";
 import useTheme from "../hooks/use-theme";
 import { Menu } from "lucide-react";
 import { scrollToElement, scrollToTop } from "../lib/scroll";
 import { useNavigate } from "react-router-dom";
+import IconInstagram from "./svg/instagram-svg";
 
 interface NavbarLandingComponentProps {
   isDocumentation?: boolean;
@@ -54,9 +54,8 @@ export const NavbarLandingComponent = ({
     <>
       <div
         ref={navbarRef}
-        className={`flex justify-between py-4 px-6 items-center z-50 transition duration-200 ${
-          scrollY >= navbarHeight ? "bg-base-200" : ``
-        } ${isDocumentation ? "bg-base-200" : "sticky top-0"}`}
+        className={`flex justify-between py-4 px-6 items-center z-50 transition duration-200 ${scrollY >= navbarHeight ? "bg-base-200" : ``
+          } ${isDocumentation ? "bg-base-200" : "sticky top-0"}`}
       >
         <div>
           <div
@@ -153,8 +152,12 @@ export const NavbarLandingComponent = ({
             <a href="mailto:rizkyfauziilmi@gmail.com" target="_blank">
               <IconGmail className="h-6 w-6 cursor-pointer hover:scale-105 hover:text-primary transition-all" />
             </a>
-            <IconTwitter className="h-6 w-6 cursor-pointer hover:scale-105 hover:text-primary transition-all" />
-            <IconDiscord className="h-6 w-6 cursor-pointer hover:scale-105 hover:text-primary transition-all" />
+            <a href="https://www.instagram.com/taskease.todo" target="_blank">
+              <IconInstagram className="h-6 w-6 cursor-pointer hover:scale-105 hover:text-primary transition-all" />
+            </a>
+            <a href="https://discord.com/invite/fDatmxxSEP" target="_blank">
+              <IconDiscord className="h-6 w-6 cursor-pointer hover:scale-105 hover:text-primary transition-all" />
+            </a>
             <a
               href="https://github.com/RizkyFauziIlmi/TaskEase"
               target="_blank"
@@ -254,8 +257,12 @@ export const NavbarLandingComponent = ({
                   <a href="mailto:rizkyfauziilmi@gmail.com" target="_blank">
                     <IconGmail className="h-6 w-6 cursor-pointer hover:scale-105 hover:text-primary transition-all" />
                   </a>
-                  <IconTwitter className="h-6 w-6 cursor-pointer hover:scale-105 hover:text-primary transition-all" />
-                  <IconDiscord className="h-6 w-6 cursor-pointer hover:scale-105 hover:text-primary transition-all" />
+                  <a href="https://www.instagram.com/taskease.todo" target="_blank">
+                    <IconInstagram className="h-6 w-6 cursor-pointer hover:scale-105 hover:text-primary transition-all" />
+                  </a>
+                  <a href="https://discord.com/invite/fDatmxxSEP" target="_blank">
+                    <IconDiscord className="h-6 w-6 cursor-pointer hover:scale-105 hover:text-primary transition-all" />
+                  </a>
                   <a
                     href="https://github.com/RizkyFauziIlmi/TaskEase"
                     target="_blank"
