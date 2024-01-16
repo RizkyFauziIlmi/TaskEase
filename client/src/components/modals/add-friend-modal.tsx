@@ -3,11 +3,12 @@ import { Loader2, Search, SearchX, UserPlus } from "lucide-react";
 import friendsApi from "../../api/friends-api";
 import { useCookies } from "react-cookie";
 import { useState } from "react";
-import { censorEmail, generateAbbreviation } from "../../lib/string";
+import { censorEmail, createAvatarFallback } from "../../lib/string";
 import { useDebounce } from "usehooks-ts";
 import AddFriendSkeleton from "../skeletons/add-friend-skeleton";
 import { toast } from "react-toastify";
 import useTheme from "../../hooks/use-theme";
+import { GifComponent } from "../gif-component";
 
 export const AddFriendModal = () => {
   const [cookies] = useCookies(["token"]);
@@ -77,17 +78,20 @@ export const AddFriendModal = () => {
                   className="flex items-center justify-between"
                 >
                   <div className="flex items-center gap-2">
-                    <div className="avatar placeholder">
-                      <div className="bg-neutral text-neutral-content rounded-full w-14">
-                        {value.imgUrl ? (
-                          <img src={value.imgUrl} />
-                        ) : (
-                          <span className="text-sm">
-                            {generateAbbreviation(value.username)}
-                          </span>
-                        )}
+                    <div
+                      className={`${value.isOnline ? "online" : "offline"} avatar placeholder`}
+                    >
+                      <div className="bg-neutral text-neutral-content rounded-full w-12">
+                        {value.profileId ?
+                          <GifComponent id={value.profileId || ""} />
+                          : value.imgUrl ? (
+                            <img src={value.imgUrl} />
+                          ) : (
+                            <span className="text-md">{createAvatarFallback(value.username)}</span>
+                          )}
                       </div>
                     </div>
+               
                     <div>
                       <p className="font-bold">{value.username}</p>
                       <p>{censorEmail(value.email || "")}</p>

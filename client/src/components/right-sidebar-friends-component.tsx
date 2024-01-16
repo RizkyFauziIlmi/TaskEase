@@ -1,7 +1,8 @@
 import { UseQueryResult } from "@tanstack/react-query";
 import { FilteredFriends, NotificationsResponse } from "../../types";
-import { generateAbbreviation } from "../lib/string";
+import { createAvatarFallback } from "../lib/string";
 import moment from "moment";
+import { GifComponent } from "./gif-component";
 
 interface RightSidebarFriendsComponentProps {
   myPendingRequest: FilteredFriends;
@@ -16,9 +17,8 @@ export const RightSidebarFriendsComponent = ({
 }: RightSidebarFriendsComponentProps) => {
   return (
     <div
-      className={`${
-        isMobile ? "block" : "hidden"
-      } overflow-y-auto md:block md:w-[30%] px-4 py-7 border-l-[1px] border-base-100 h-full`}
+      className={`${isMobile ? "block" : "hidden"
+        } overflow-y-auto md:block md:w-[30%] px-4 py-7 border-l-[1px] border-base-100 h-full`}
     >
       <h2 className="text-xl font-bold mb-4">Notification</h2>
       <div className="flex flex-col gap-4">
@@ -37,15 +37,17 @@ export const RightSidebarFriendsComponent = ({
                 })
                 .slice(0, 2)
                 .map((value) => (
-                  <div className="avatar placeholder">
+                  <div
+                    className={`${value.isOnline && "online"} avatar placeholder`}
+                  >
                     <div className="bg-neutral text-neutral-content rounded-full w-10">
-                      {value.imgUrl ? (
-                        <img src={value.imgUrl} />
-                      ) : (
-                        <span className="text-xs">
-                          {generateAbbreviation(value.username)}
-                        </span>
-                      )}
+                      {value.profileId ?
+                        <GifComponent id={value.profileId || ""} />
+                        : value.imgUrl ? (
+                          <img src={value.imgUrl} />
+                        ) : (
+                          <span className="text-md">{createAvatarFallback(value.username)}</span>
+                        )}
                     </div>
                   </div>
                 ))}
@@ -55,9 +57,9 @@ export const RightSidebarFriendsComponent = ({
                     <span>
                       {myPendingRequest?.length ||
                         [].length -
-                          (myPendingRequest
-                            ? myPendingRequest.slice(0, 3).length
-                            : 0)}
+                        (myPendingRequest
+                          ? myPendingRequest.slice(0, 3).length
+                          : 0)}
                       +
                     </span>
                   </div>
@@ -70,18 +72,16 @@ export const RightSidebarFriendsComponent = ({
         {notifications.data?.data?.map((value) => (
           <div className="w-full flex items-center h-fit gap-2 p-2 bg-base-300 rounded-md">
             <div
-              className={`avatar placeholder ${
-                value.Sender.isOnline ? "online" : "offline"
-              }`}
+              className={`${value.Sender.isOnline && "online"} avatar placeholder`}
             >
               <div className="bg-neutral text-neutral-content rounded-full w-10">
-                {value.Sender.imgUrl ? (
-                  <img src={value.Sender.imgUrl} />
-                ) : (
-                  <span className="text-xs">
-                    {generateAbbreviation(value.Sender.username)}
-                  </span>
-                )}
+                {value.Sender.profileId ?
+                  <GifComponent id={value.Sender.profileId || ""} />
+                  : value.Sender.imgUrl ? (
+                    <img src={value.Sender.imgUrl} />
+                  ) : (
+                    <span className="text-md">{createAvatarFallback(value.Sender.username)}</span>
+                  )}
               </div>
             </div>
             <div className="text-xs">

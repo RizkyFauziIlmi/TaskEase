@@ -70,37 +70,39 @@ export const ContentFriendsComponent = ({
           <div className="flex flex-col gap-2">
             {input.trim() === ""
               ? myFriends?.map((value) => (
+                <FriendListComponent
+                  relationId={value.relationId}
+                  key={value.id}
+                  email={value.email}
+                  imgUrl={value.imgUrl}
+                  isOnline={value.isOnline}
+                  profileId={value.profileId}
+                  username={value.username}
+                  deleteFriendMutation={deleteFriendMutation}
+                />
+              ))
+              : myFriends
+                ?.filter((value) => {
+                  const lowercaseUsername = value.username
+                    ? value.username.toLowerCase()
+                    : "";
+                  const lowercaseInput = input
+                    ? String(input).toLowerCase()
+                    : "";
+                  return lowercaseUsername.includes(lowercaseInput);
+                })
+                ?.map((value) => (
                   <FriendListComponent
                     relationId={value.relationId}
                     key={value.id}
                     email={value.email}
                     imgUrl={value.imgUrl}
                     isOnline={value.isOnline}
+                    profileId={value.profileId}
                     username={value.username}
                     deleteFriendMutation={deleteFriendMutation}
                   />
-                ))
-              : myFriends
-                  ?.filter((value) => {
-                    const lowercaseUsername = value.username
-                      ? value.username.toLowerCase()
-                      : "";
-                    const lowercaseInput = input
-                      ? String(input).toLowerCase()
-                      : "";
-                    return lowercaseUsername.includes(lowercaseInput);
-                  })
-                  ?.map((value) => (
-                    <FriendListComponent
-                      relationId={value.relationId}
-                      key={value.id}
-                      email={value.email}
-                      imgUrl={value.imgUrl}
-                      isOnline={value.isOnline}
-                      username={value.username}
-                      deleteFriendMutation={deleteFriendMutation}
-                    />
-                  ))}
+                ))}
           </div>
         </div>
       )}
@@ -112,37 +114,39 @@ export const ContentFriendsComponent = ({
           <div className="flex flex-col gap-2">
             {input.trim() === ""
               ? myOnlineFriends?.map((value) => (
+                <FriendListComponent
+                  relationId={value.relationId}
+                  key={value.id}
+                  email={value.email}
+                  imgUrl={value.imgUrl}
+                  isOnline={value.isOnline}
+                  profileId={value.profileId}
+                  username={value.username}
+                  deleteFriendMutation={deleteFriendMutation}
+                />
+              ))
+              : myOnlineFriends
+                ?.filter((value) => {
+                  const lowercaseUsername = value.username
+                    ? value.username.toLowerCase()
+                    : "";
+                  const lowercaseInput = input
+                    ? String(input).toLowerCase()
+                    : "";
+                  return lowercaseUsername.includes(lowercaseInput);
+                })
+                ?.map((value) => (
                   <FriendListComponent
                     relationId={value.relationId}
                     key={value.id}
                     email={value.email}
                     imgUrl={value.imgUrl}
                     isOnline={value.isOnline}
+                    profileId={value.profileId}
                     username={value.username}
                     deleteFriendMutation={deleteFriendMutation}
                   />
-                ))
-              : myOnlineFriends
-                  ?.filter((value) => {
-                    const lowercaseUsername = value.username
-                      ? value.username.toLowerCase()
-                      : "";
-                    const lowercaseInput = input
-                      ? String(input).toLowerCase()
-                      : "";
-                    return lowercaseUsername.includes(lowercaseInput);
-                  })
-                  ?.map((value) => (
-                    <FriendListComponent
-                      relationId={value.relationId}
-                      key={value.id}
-                      email={value.email}
-                      imgUrl={value.imgUrl}
-                      isOnline={value.isOnline}
-                      username={value.username}
-                      deleteFriendMutation={deleteFriendMutation}
-                    />
-                  ))}
+                ))}
           </div>
         </div>
       )}
@@ -154,10 +158,35 @@ export const ContentFriendsComponent = ({
           <div className="flex flex-col gap-2">
             {input.trim() === ""
               ? myPendingFriends?.map((value) => (
+                <FriendListComponent
+                  relationId={value.relationId}
+                  key={value.id}
+                  email={value.email}
+                  imgUrl={value.imgUrl}
+                  profileId={value.profileId}
+                  isOnline={value.isOnline}
+                  username={value.username}
+                  isPendingState
+                  acceptFriendMutation={acceptFriendMutation}
+                  rejectFriendMutation={rejectFriendMutation}
+                />
+              ))
+              : myPendingFriends
+                ?.filter((value) => {
+                  const lowercaseUsername = value.username
+                    ? value.username.toLowerCase()
+                    : "";
+                  const lowercaseInput = input
+                    ? String(input).toLowerCase()
+                    : "";
+                  return lowercaseUsername.includes(lowercaseInput);
+                })
+                ?.map((value) => (
                   <FriendListComponent
                     relationId={value.relationId}
                     key={value.id}
                     email={value.email}
+                    profileId={value.profileId}
                     imgUrl={value.imgUrl}
                     isOnline={value.isOnline}
                     username={value.username}
@@ -165,30 +194,7 @@ export const ContentFriendsComponent = ({
                     acceptFriendMutation={acceptFriendMutation}
                     rejectFriendMutation={rejectFriendMutation}
                   />
-                ))
-              : myPendingFriends
-                  ?.filter((value) => {
-                    const lowercaseUsername = value.username
-                      ? value.username.toLowerCase()
-                      : "";
-                    const lowercaseInput = input
-                      ? String(input).toLowerCase()
-                      : "";
-                    return lowercaseUsername.includes(lowercaseInput);
-                  })
-                  ?.map((value) => (
-                    <FriendListComponent
-                      relationId={value.relationId}
-                      key={value.id}
-                      email={value.email}
-                      imgUrl={value.imgUrl}
-                      isOnline={value.isOnline}
-                      username={value.username}
-                      isPendingState
-                      acceptFriendMutation={acceptFriendMutation}
-                      rejectFriendMutation={rejectFriendMutation}
-                    />
-                  ))}
+                ))}
           </div>
         </div>
       )}

@@ -12,6 +12,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import IconTodoLine from "./svg/todo-line-svg";
 import { toast } from "react-toastify";
 import useTheme from "../hooks/use-theme";
+import { GifComponent } from "./gif-component";
+import { createAvatarFallback } from "../lib/string";
 
 interface AdminTableComponentProps {
   data: GetUserResponse[];
@@ -142,7 +144,7 @@ export const AdminTableComponent = ({
                     key={value.id}
                     className={
                       isOptimisticUpdateDeleteUser ||
-                      isOptimisticUpdateToggleRole
+                        isOptimisticUpdateToggleRole
                         ? "opacity-50 pointer-events-none cursor-not-allowed"
                         : ""
                     }
@@ -154,9 +156,15 @@ export const AdminTableComponent = ({
                     </td>
                     <td>
                       <div className="flex items-center gap-3">
-                        <div className="avatar">
-                          <div className="mask mask-squircle w-12 h-12">
-                            <img src={value.imgUrl} alt={value.username} />
+                        <div className="avatar placeholder">
+                          <div className="w-12 h-12 rounded-md bg-neutral text-neutral-content ring ring-base-100 ring-offset-base-100 ring-offset-2">
+                            {value.profileId ?
+                              <GifComponent id={value.profileId || ""} />
+                              : value.imgUrl ? (
+                                <img src={value.imgUrl} />
+                              ) : (
+                                <span className="text-md">{createAvatarFallback(value.username)}</span>
+                              )}
                           </div>
                         </div>
                         <div>

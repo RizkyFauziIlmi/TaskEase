@@ -17,7 +17,6 @@ import notificationApi from "../api/notification-api";
 import { NavbarFriendsComponent } from "../components/navbar-friends-component";
 import { ContentFriendsComponent } from "../components/content-friends-component";
 import { RightSidebarFriendsComponent } from "../components/right-sidebar-friends-component";
-import { ErrorComponent } from "../components/error-component";
 
 enum TabState {
   ONLINE,
@@ -142,7 +141,7 @@ export default function FriendsPage() {
     .map((item) => {
       const relationId = item.id;
       const opponent =
-        item.initiator.id === user.data.id ? item.respondent : item.initiator;
+        item.initiator.id === user?.data?.id ? item.respondent : item.initiator;
       const {
         id,
         username,
@@ -186,7 +185,7 @@ export default function FriendsPage() {
     .map((item) => {
       const relationId = item.id;
       const opponent =
-        item.initiator.id === user.data.id ? item.respondent : item.initiator;
+        item.initiator.id === user?.data?.id ? item.respondent : item.initiator;
       const {
         id,
         username,
@@ -227,7 +226,7 @@ export default function FriendsPage() {
     .map((item) => {
       const relationId = item.id;
       const opponent =
-        item.initiator.id === user.data.id ? item.respondent : item.initiator;
+        item.initiator.id === user?.data?.id ? item.respondent : item.initiator;
       const {
         id,
         username,

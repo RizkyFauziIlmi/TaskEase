@@ -10,6 +10,7 @@ const userController = {
     try {
       // Check if the user is an admin
       const isAdmin = req.user.role === "ADMIN";
+      console.log(req.user.role);
 
       if (!isAdmin) {
         // Return 401 Unauthorized status if the user is not an admin

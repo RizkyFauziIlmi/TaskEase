@@ -1,7 +1,8 @@
 import { Check, Loader2, UserMinusIcon, X } from "lucide-react";
-import { censorEmail, generateAbbreviation } from "../lib/string";
+import { censorEmail, createAvatarFallback } from "../lib/string";
 import { UseMutationResult } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
+import { GifComponent } from "./gif-component";
 
 interface FriendListComponentProps {
   relationId: string;
@@ -11,6 +12,7 @@ interface FriendListComponentProps {
   username: string;
   email: string | undefined;
   isPendingState?: boolean;
+  profileId: string | null;
   /* eslint-disable */
   acceptFriendMutation?: UseMutationResult<
     AxiosResponse<any, any>,
@@ -40,6 +42,7 @@ export const FriendListComponent = ({
   imgUrl,
   isOnline,
   username,
+  profileId,
   isPendingState = false,
   acceptFriendMutation,
   deleteFriendMutation,
@@ -57,14 +60,16 @@ export const FriendListComponent = ({
     >
       <div className="flex items-center gap-2">
         <div
-          className={`avatar placeholder ${isOnline ? "online" : "offline"}`}
+          className={`${isOnline && "online"} avatar placeholder`}
         >
           <div className="bg-neutral text-neutral-content rounded-full w-10">
-            {imgUrl ? (
-              <img src={imgUrl} />
-            ) : (
-              <span className="text-xs">{generateAbbreviation(username)}</span>
-            )}
+            {profileId ?
+              <GifComponent id={profileId || ""} />
+              : imgUrl ? (
+                <img src={imgUrl} />
+              ) : (
+                <span className="text-md">{createAvatarFallback(username)}</span>
+              )}
           </div>
         </div>
         <div className="text-sm">
@@ -86,7 +91,7 @@ export const FriendListComponent = ({
               onClick={() => acceptFriendMutation?.mutate(relationId)}
             >
               {acceptFriendMutation?.isPending &&
-              acceptFriendMutation.variables === relationId ? (
+                acceptFriendMutation.variables === relationId ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
                 <Check className="w-4 h-4 text-primary" />
@@ -98,7 +103,7 @@ export const FriendListComponent = ({
               onClick={() => rejectFriendMutation?.mutate(relationId)}
             >
               {rejectFriendMutation?.isPending &&
-              rejectFriendMutation.variables === relationId ? (
+                rejectFriendMutation.variables === relationId ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
                 <X className="w-4 h-4 text-primary" />
@@ -112,7 +117,7 @@ export const FriendListComponent = ({
             onClick={() => deleteFriendMutation?.mutate(relationId)}
           >
             {deleteFriendMutation?.isPending &&
-            deleteFriendMutation.variables === relationId ? (
+              deleteFriendMutation.variables === relationId ? (
               <Loader2 className="w-4 h-4 animate-spin" />
             ) : (
               <UserMinusIcon className="w-4 h-4" />

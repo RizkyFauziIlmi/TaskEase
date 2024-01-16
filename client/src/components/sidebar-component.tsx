@@ -32,6 +32,7 @@ import IconEmailOutline from "./svg/email-svg.tsx";
 import { updateUserRequest } from "../../types.ts";
 import { toast } from "react-toastify";
 import { AddFriendModal } from "./modals/add-friend-modal.tsx";
+import { createAvatarFallback } from "../lib/string.ts";
 
 interface SidebarComponentProps {
   className: string;
@@ -135,7 +136,7 @@ export default function SidebarComponent({
                   }}
                 >
                   {updateUserMutation.isPending &&
-                  updateUserMutation.variables.theme === value.toUpperCase() ? (
+                    updateUserMutation.variables.theme === value.toUpperCase() ? (
                     <Loader2 className="animate-spin" />
                   ) : null}
                   {theme === value ? <MonitorCheck /> : null}
@@ -157,9 +158,8 @@ export default function SidebarComponent({
       </div>
       {/* Sidebar */}
       <div
-        className={`${
-          isDarkOrLight ? "bg-base-300" : ""
-        } px-4 py-6 shadow-lg overflow-y-auto overflow-x-hidden min-h-screen z-50 ${className}`}
+        className={`${isDarkOrLight ? "bg-base-300" : ""
+          } px-4 py-6 shadow-lg overflow-y-auto overflow-x-hidden min-h-screen z-50 ${className}`}
       >
         <div className="flex justify-between items-center pb-6">
           <div
@@ -178,22 +178,30 @@ export default function SidebarComponent({
                 className="avatar online placeholder"
               >
                 <div className="bg-neutral text-neutral-content rounded-full w-12">
-                  {data.imgUrl ? (
-                    <img src={data.imgUrl} />
-                  ) : (
-                    <span className="text-xl">{data.username}</span>
-                  )}
+                  {data.profileId ?
+                    <GifComponent id={data.profileId || ""} />
+                    : data.imgUrl ? (
+                      <img src={data.imgUrl} />
+                    ) : (
+                      <span className="text-md">{createAvatarFallback(data.username)}</span>
+                    )}
                 </div>
               </div>
-              <div className="dropdown-content z-[1] menu m-0 p-0 shadow bg-base-100 h-96 w-56">
+              <div className={`dropdown-content z-[1] menu m-0 p-0 shadow h-96 w-56 ${isDarkOrLight ? "bg-base-content" : "bg-base-300"}`}>
                 <div className="h-[25%]">
-                  <GifComponent id={data.bannerId || ""} />
+                  {data.bannerId ? <GifComponent id={data.bannerId || ""} /> : ""}
                 </div>
                 <div className="bg-base-100 h-[75%]">
                   <div className="h-[15%]">
-                    <div className="avatar">
-                      <div className="w-16 -mt-7 ml-4 rounded-full ring ring-base-100 ring-offset-base-100 ring-offset-2">
-                        <GifComponent id={data.profileId || ""} />
+                    <div className="avatar placeholder">
+                      <div className="w-14 -mt-7 ml-4 rounded-full bg-neutral text-neutral-content ring ring-base-100 ring-offset-base-100 ring-offset-2">
+                        {data.profileId ?
+                          <GifComponent id={data.profileId || ""} />
+                          : data.imgUrl ? (
+                            <img src={data.imgUrl} />
+                          ) : (
+                            <span className="text-md">{createAvatarFallback(data.username)}</span>
+                          )}
                       </div>
                     </div>
                     <button
@@ -254,18 +262,16 @@ export default function SidebarComponent({
             <h3 className="font-bold opacity-80">Type</h3>
             <div className="flex flex-col gap-6 p-4">
               <div
-                className={`flex gap-4 cursor-pointer p-2 items-center hover:bg-primary/20 rounded transition-all ${
-                  isHomeRoute && "bg-primary/20"
-                }`}
+                className={`flex gap-4 cursor-pointer p-2 items-center hover:bg-primary/20 rounded transition-all ${isHomeRoute && "bg-primary/20"
+                  }`}
                 onClick={() => navigate("/todo")}
               >
                 <CheckCircle className="text-primary" />
                 <h6 className="font-semibold text-sm">Todo</h6>
               </div>
               <div
-                className={`flex gap-4 cursor-pointer p-2 items-center rounded hover:bg-primary/20 transition-all ${
-                  false && "bg-primary/20"
-                }`}
+                className={`flex gap-4 cursor-pointer p-2 items-center rounded hover:bg-primary/20 transition-all ${false && "bg-primary/20"
+                  }`}
                 onClick={() =>
                   toast.info("This feature is on development", {
                     theme: isDarkVariant ? "dark" : "light",
@@ -282,9 +288,8 @@ export default function SidebarComponent({
             <h3 className="font-bold opacity-80">Connection</h3>
             <div className="flex flex-col gap-6 p-4">
               <div
-                className={`flex gap-4 cursor-pointer p-2 items-center hover:bg-primary/20 rounded transition-all ${
-                  isFriendsRoute && "bg-primary/20"
-                }`}
+                className={`flex gap-4 cursor-pointer p-2 items-center hover:bg-primary/20 rounded transition-all ${isFriendsRoute && "bg-primary/20"
+                  }`}
                 onClick={() => navigate("/friends")}
               >
                 <Users className="text-primary" />
@@ -297,9 +302,8 @@ export default function SidebarComponent({
             <div className="flex flex-col gap-6 p-4">
               {data?.role === "ADMIN" && (
                 <div
-                  className={`flex gap-4 cursor-pointer p-2 items-center hover:bg-primary/20 rounded transition-all ${
-                    isAdminSettingsdRoute && "bg-primary/20"
-                  }`}
+                  className={`flex gap-4 cursor-pointer p-2 items-center hover:bg-primary/20 rounded transition-all ${isAdminSettingsdRoute && "bg-primary/20"
+                    }`}
                   onClick={() => navigate("/admin-settings")}
                 >
                   <Wrench className="text-primary" />
@@ -314,9 +318,8 @@ export default function SidebarComponent({
                 <h6 className="font-semibold text-sm">Account Settings</h6>
               </div>
               <div
-                className={`flex gap-4 cursor-pointer p-2 items-center hover:bg-primary/20 rounded transition-all ${
-                  isDashboardRoute && "bg-primary/20"
-                }`}
+                className={`flex gap-4 cursor-pointer p-2 items-center hover:bg-primary/20 rounded transition-all ${isDashboardRoute && "bg-primary/20"
+                  }`}
                 onClick={() => navigate("/dashboard")}
               >
                 <BarChart4 className="text-primary" />
