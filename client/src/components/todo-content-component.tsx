@@ -185,10 +185,9 @@ export default function TodoContentComponent() {
           <Grid />
           <input
             type="checkbox"
-            value="synthwave"
             checked={isList}
             onChange={toggleIsList}
-            className="toggle theme-controller"
+            className="toggle"
           />
           <List />
         </label>
