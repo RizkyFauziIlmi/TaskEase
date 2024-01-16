@@ -145,7 +145,7 @@ export default function CreateTodoModal({
             <button
               className="btn btn-success w-fit"
               disabled={!isDirty || isSubmitting}
-              onClick={() => onSubmit()}
+              onClick={onSubmit}
             >
               <PlusCircle /> Create
             </button>

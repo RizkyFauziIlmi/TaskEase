@@ -11,13 +11,10 @@ import { useState } from "react";
 import { ListTodoComponent } from "./list-todo-component";
 import {
   Check,
-  DatabaseZap,
   Grid,
   List,
   Loader2,
   Palette,
-  RefreshCcw,
-  ServerCrash,
 } from "lucide-react";
 import { GridTodoComponent } from "./grid-todo-component";
 import { GetAllTodosResponse, updateUserRequest } from "../../types";
@@ -42,7 +39,7 @@ export default function TodoContentComponent() {
     setIsList(!isList);
   };
 
-  const { data, isPending, error, refetch } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["getAllTodos"],
     queryFn: () => todoApi.getAllTodos(cookies.token),
     retry: false,
@@ -134,30 +131,30 @@ export default function TodoContentComponent() {
       ]),
   });
 
-  const isServerCrash = error?.message === "Network Error";
+  // const isServerCrash = error?.message === "Network Error";
 
-  if (error) {
-    return (
-      <div className="gap-2 items-center justify-center flex flex-col h-[90%] md:h-[80%] overflow-x-hidden overflow-y-auto">
-        {isServerCrash ? (
-          <ServerCrash className="w-14 h-14" />
-        ) : (
-          <DatabaseZap className="w-14 h-14" />
-        )}
-        <h1 className="text-md font-bold">
-          {isServerCrash
-            ? "Server Crash"
-            : "Data not found, please add data first!"}
-        </h1>
-        <button
-          className="btn btn-primary btn-sm mt-2"
-          onClick={() => refetch({ cancelRefetch: false })}
-        >
-          <RefreshCcw className="h-4 w-4" /> Retry
-        </button>
-      </div>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <div className="gap-2 items-center justify-center flex flex-col h-[90%] md:h-[80%] overflow-x-hidden overflow-y-auto">
+  //       {isServerCrash ? (
+  //         <ServerCrash className="w-14 h-14" />
+  //       ) : (
+  //         <DatabaseZap className="w-14 h-14" />
+  //       )}
+  //       <h1 className="text-md font-bold">
+  //         {isServerCrash
+  //           ? "Server Crash"
+  //           : "Data not found, please add data first!"}
+  //       </h1>
+  //       <button
+  //         className="btn btn-primary btn-sm mt-2"
+  //         onClick={() => refetch({ cancelRefetch: false })}
+  //       >
+  //         <RefreshCcw className="h-4 w-4" /> Retry
+  //       </button>
+  //     </div>
+  //   );
+  // }
 
   const isOptimisticUpdateToggleCompleted = (id: string) => {
     return (
