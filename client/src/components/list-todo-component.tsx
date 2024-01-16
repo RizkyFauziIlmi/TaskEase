@@ -84,9 +84,8 @@ export const ListTodoComponent = ({
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0.8, opacity: 0 }}
                   transition={{ type: "spring" }}
-                  className={`flex flex-col sm:flex-row justify-between p-6 gap-4 items-center ${
-                    isOptimisticUpdateDeleteTodo(value.id) && "opacity-40"
-                  }`}
+                  className={`flex flex-col sm:flex-row justify-between p-6 gap-4 items-center ${isOptimisticUpdateDeleteTodo(value.id) && "opacity-40"
+                    }`}
                 >
                   <div className="flex gap-6 items-center">
                     {isOptimisticUpdateToggleCompleted(value.id) ? (
@@ -111,17 +110,15 @@ export const ListTodoComponent = ({
                       >
                         {isOptimisticUpdateToggleCompleted(value.id) ? (
                           <p
-                            className={`${
-                              !value.completed ? "line-through opacity-80" : ""
-                            }`}
+                            className={`${!value.completed ? "line-through opacity-80" : ""
+                              }`}
                           >
                             {truncateString(value.title, 20)}
                           </p>
                         ) : (
                           <p
-                            className={`${
-                              value.completed ? "line-through opacity-80" : ""
-                            }`}
+                            className={`${value.completed ? "line-through opacity-80" : ""
+                              }`}
                           >
                             {truncateString(value.title, 20)}
                           </p>
@@ -147,7 +144,7 @@ export const ListTodoComponent = ({
                         </div>
                       </h3>
                       <p className="font-semibold text-sm opacity-70 truncate...">
-                        {truncateString(value.description, 14)}
+                        {truncateString(value.description, 35)}
                       </p>
                     </div>
                   </div>

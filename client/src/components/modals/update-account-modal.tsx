@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import useTheme from "../../hooks/use-theme";
 import { useBoolean } from "usehooks-ts";
+import { createAvatarFallback } from "../../lib/string";
 
 const FormSchema = z.object({
   bannerGifId: z.string(),
@@ -107,21 +108,47 @@ export const UpdateAccountModal = ({
         {isSuccess && (
           <div className="flex flex-col h-full w-full">
             <div className="w-full">
-              <GifComponent
-                classname="w-full object-cover"
-                id={watch("bannerGifId")}
-              />
+              {!data.bannerId && !isNotChange ?
+                <GifComponent
+                  classname="w-full object-cover"
+                  id={watch("bannerGifId")}
+                />
+                : data.bannerId ?
+                  <GifComponent
+                    classname="w-full object-cover"
+                    id={data.bannerId || ""}
+                  />
+                  : <div className="w-full bg-base-100 h-40"></div>
+              }
             </div>
             <div className="relative">
               <div className="relative left-5 -top-10 gap-2 items-center w-fit h-fit flex">
-                <div className="avatar">
+                <div className="avatar placeholder">
+                  <div className="w-24 bg-neutral text-neutral-content rounded-full ring ring-base-300 ring-offset-base-300 ring-offset-2">
+                    {!data.profileId && !isNotChange ? <GifComponent
+                      classname="object-center"
+                      id={watch("profileGifId")}
+                    /> :
+                      data.profileId ?
+                        <GifComponent
+                          classname="object-center"
+                          id={data.profileId || ""}
+                        />
+                        : data.imgUrl ? (
+                          <img src={data.imgUrl} />
+                        ) : (
+                          <span className="text-md">{createAvatarFallback(data.username)}</span>
+                        )}
+                  </div>
+                </div>
+                {/* <div className="avatar">
                   <div className="w-24 rounded-full ring ring-base-300 ring-offset-base-300 ring-offset-2">
                     <GifComponent
                       classname="object-center"
                       id={watch("profileGifId")}
                     />
                   </div>
-                </div>
+                </div> */}
                 <h3 className="mt-4 font-bold text-lg">{data.username}</h3>
               </div>
               <div className="bg-base-100 p-2 m-4 rounded-md flex flex-col gap-4">
