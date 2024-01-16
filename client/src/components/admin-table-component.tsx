@@ -122,16 +122,17 @@ export const AdminTableComponent = ({
                   deleteUserMutation.isPending &&
                   deleteUserMutation.variables === value.id;
 
-                const lastLogin = moment(
-                  value.activities
-                    ?.filter(
-                      (value) =>
-                        value.description === "Login" ||
-                        value.description === "Create an new Account"
-                    )
-                    ?.sort((a, b) => moment(b.time).diff(moment(a.time)))[0]
-                    .time
-                ).calendar();
+                const lastLogin =
+                  moment(
+                    value.activities
+                      ?.filter(
+                        (value) =>
+                          value.description === "Login" ||
+                          value.description === "Create a new Account"
+                      )
+                      ?.sort((a, b) => moment(b.time).diff(moment(a.time)))[0]
+                      .time
+                  ).calendar();
 
                 return (
                   <motion.tr
@@ -191,7 +192,7 @@ export const AdminTableComponent = ({
                         {moment(new Date(value.updatedAt)).calendar()}
                       </p>
                     </td>
-                    <td className="text-xs">{lastLogin}</td>
+                    <td className="text-xs">{lastLogin || ""}</td>
                     <td>
                       <div className="text-xs flex flex-col gap-1 font-semibold opacity-80">
                         <p className="flex items-center gap-2">
