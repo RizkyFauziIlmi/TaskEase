@@ -9,29 +9,16 @@ import { GetUserResponse } from "../../types";
 import { useDocumentTitle } from "usehooks-ts";
 import { ToastContainer } from "react-toastify";
 import { NavbarMobileComponent } from "../components/navbar-mobile-component";
-import ContentCenterLayout from "../layouts/content-center-layout";
-import { ErrorComponent } from "../components/error-component";
 
 export default function AdminSettingsPage() {
   useDocumentTitle("TaskEase - Admin Settings");
   
   const [cookies] = useCookies(["token"]);
 
-  const { data, isPending, isSuccess, refetch } = useQuery({
+  const { data, isPending, isSuccess } = useQuery({
     queryKey: ["getUsersAdminSettings"],
     queryFn: () => userApi.getAllUser(cookies.token),
   });
-
-  if (data?.length === 0) {
-    return(
-      <ContentCenterLayout>
-        <ErrorComponent
-        message="You're the only one user"
-          callback={() => refetch()}
-        />
-      </ContentCenterLayout>
-    )
-  }
 
   return (
     <HomeLayout>
