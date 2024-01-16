@@ -65,22 +65,18 @@ export default function CreateTodoModal({
         theme: isDarkVariant ? "dark" : "light",
         position: toast.POSITION.BOTTOM_RIGHT,
       });
+      reset({ category: "", description: "", title: "" });
       clearState();
     },
     mutationKey: ["createTodo"],
   });
 
-  const createTodo = (title: string, description: string, category: string) => {
-    createTodoMutation.mutate({
-      title,
-      description,
-      category,
-    });
-  };
-
   const onSubmit = handleSubmit((formData) => {
-    createTodo(formData.title, formData.description, formData.category);
-    reset({ category: "", description: "", title: "" });
+    createTodoMutation.mutate({
+      title: formData.title,
+      description: formData.description,
+      category: formData.category,
+    });
   });
 
   return (
@@ -145,7 +141,7 @@ export default function CreateTodoModal({
             <button
               className="btn btn-success w-fit"
               disabled={!isDirty || isSubmitting}
-              onClick={onSubmit}
+              onClick={() => onSubmit()}
             >
               <PlusCircle /> Create
             </button>
